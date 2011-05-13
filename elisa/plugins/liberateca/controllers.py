@@ -157,7 +157,9 @@ class chapterButton(ContextualAction):
         x = linkExtractor()
         for link in links:
             try:
+                print >>stderr, "[liberateca] comprobando link [%s]" % link['url']
                 lnk = x.getLink(link['url'])
+                print >>stderr, "[liberateca] hay link [ %s ]" % lnk
                 okLink = lnk
                 break
 
@@ -165,6 +167,7 @@ class chapterButton(ContextualAction):
                 pass
 
         if not okLink:
+            print >>stderr, "[liberateca] no hubo suerte :/"
             return defer.fail(Exception("No se han encontrado servidores soportados"))
 
         video = LiberatecaVideoModel(self.name, okLink)

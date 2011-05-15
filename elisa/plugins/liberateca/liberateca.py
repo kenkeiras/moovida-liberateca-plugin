@@ -10,14 +10,9 @@
 from sys import stderr
 import urllib2, base64
 
+import json
 def unroll(text ):
-    """
-    Converts the text into 'native' variables.
-    Quick & Dirty, a manipulated server could inyect code :/
-    """
-    foo = []
-    exec "foo.append(%s)" % text
-    return foo[0]
+    return json.loads(text)
 
 def toUrl(base, url):
     url = url.replace("__",str(base))

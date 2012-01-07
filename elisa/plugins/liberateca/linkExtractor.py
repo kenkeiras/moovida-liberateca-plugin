@@ -32,18 +32,13 @@ class linkExtractor:
     @ivar MUmatcher: Megaupload download link matcher
     @type MUmatcher: SRE_Pattern
 
-    @ivar MUsleepTime: Time to wait for downloading with megaupload
-    @type MUsleepTime: C{int}
-
     @ivar megavideodRegExp: Megavideo url matcher
     @type megavideoRegExp: C{str}
     """
     megauploadRegExp = "(http://){0,1}(www.){0,1}megaupload.com/?.*d=.*"
     megavideoRegExp = "(http://){0,1}(www.){0,1}megavideo.com/?.*v=.*"
 
-    MUmatcher = re.compile('"downloadlink"><a\shref="([^"]*)".*')
-
-    MUsleepTime = 46
+    MUmatcher = re.compile('<a href="([^"]*)" class="download_regular_usual"')
 
     def cleanUrl(self, url):
         """
@@ -64,7 +59,6 @@ class linkExtractor:
         if not m:
             raise Exception("Error requesting file")
 
-        time.sleep( self.MUsleepTime)
         return m.group(1)
 
     def getMVlink(self, link):
